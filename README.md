@@ -1,5 +1,7 @@
 # Water Level Wave Shader
 
+🔗 [Live demo](https://michua3cm.github.io/water-level-wave-shader/)
+
 A custom GLSL shader for Three.js that simulates animated surface waves with real-time water level control, designed for arbitrary 3D geometry using stencil masking.
 
 ## Description
