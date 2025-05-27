@@ -7,5 +7,6 @@ export default defineConfig({
   server: {
     port: 8888,
     open: true
-  }
+  },
+  base: '/water-level-wave-shader/'
 })
