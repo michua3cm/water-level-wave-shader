@@ -1,0 +1,42 @@
+# Dependency directory
+node_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+
+# Local environment files
+.env*
+!.env.example
+*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor settings
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# System files
+.DS_Store
+
+# OS/IDE artifacts
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Snippets and config (optional to ignore if personal)
+.vscode/markdown.code-snippets
+
+# 3D model files (optional)
+src/assets/*
