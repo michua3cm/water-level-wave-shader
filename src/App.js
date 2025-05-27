@@ -12,10 +12,10 @@ const {
 } = createScene();
 
 const models = [
-    { file: "ChemicalIndustry.glb", liquid: "WaterBody" },
+    // { file: "ChemicalIndustry.glb", liquid: "WaterBody" },
     // { file: "model.glb", liquid: "WaterBody" },
     // { file: "Suzanne.glb", liquid: "WaterBody" },
-    // { file: "suzanne2.glb", liquid: "Suzanne" },
+    { file: "suzanne2.glb", liquid: "Suzanne" },
     // { file: "Tank.glb", liquid: "Tank001" }
 ];
 

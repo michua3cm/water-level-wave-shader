@@ -38,7 +38,7 @@ export function loadModels(models, scene) {
         }
 
         for (const model of models) {
-            const gltf = await loadGLTF(`/src/assets/${model.file}`);
+            const gltf = await loadGLTF(`./src/assets/${model.file}`);
             const modelMesh = gltf.scene;
             modelMeshes.push(modelMesh);
 
