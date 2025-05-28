@@ -68,7 +68,7 @@ export function loadModels(models, scene) {
         }
 
         for (const model of models) {
-            const gltf = await loadGLTF(`./src/assets/${model?.file || model}`);
+            const gltf = await loadGLTF(`./assets/${model?.file || model}`);
             const modelMesh = gltf.scene;
 
             const { liquidBodies, shells } = getObjectByBaseName(modelMesh, { baseName: model.liquid });
