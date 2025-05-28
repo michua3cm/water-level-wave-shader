@@ -8,5 +8,8 @@ export default defineConfig({
     port: 8888,
     open: true
   },
-  base: '/water-level-wave-shader/'
+  base: '/water-level-wave-shader/',
+  build: {
+    target: 'esnext' // Allows top-level await
+  }
 })
