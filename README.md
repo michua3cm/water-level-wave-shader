@@ -36,23 +36,14 @@ In this way, the effect can be applied to **any arbitrary geometry**, not just s
 
 ```text
 ├── docs/                        ← Technical notes and internal references
-│   ├── dev-log.md
-│   ├── math-notes.md
-│   └── threejs-shader-builtins.md
 ├── public/
-│   └── images/
+│   ├── assets/                  ← 3D models (.glb)
+│   └── images/                  ← Logos and static SVGs
 ├── src/
-│   ├── assets/                  ← 3D model files (.glb)
 │   ├── components/              ← Visual and simulation logic
-│   │   ├── SceneSetup.js
-│   │   ├── ModelLoader.js
-│   │   ├── LiquidEffect.js
-│   │   ├── LiquidControlPanel.js
-│   │   ├── WaterShader.js
-│   │   └── Animation.js
 │   └── App.js                   ← Entry point
-├── index.html                   ← Root HTML file (used by Vite)
-├── vite.config.js               ← Vite project configuration
+├── index.html
+├── vite.config.js
 ├── README.md
 └── LICENSE
 ```
