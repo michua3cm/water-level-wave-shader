@@ -39,4 +39,4 @@ lerna-debug.log*
 .vscode/markdown.code-snippets
 
 # 3D model files (optional)
-src/assets/*
+# src/assets/*
