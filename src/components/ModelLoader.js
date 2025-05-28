@@ -6,10 +6,15 @@ export function loadModels(models, scene) {
     const loader = new GLTFLoader();
     const modelMeshes = [];
     const liquidEffects = [];
-    const tanks = [];
     const boundingBoxes = [];
     const axes = [];
 
+    /**
+     * Load GLTF model from the given path
+     * 
+     * @param {string} path directory path to the GLTF model
+     * @returns {Promise<THREE.GLTF>} A promise that resolves to the loaded GLTF model
+     */
     function loadGLTF(path) {
         return new Promise((resolve, reject) => {
             loader.load(
@@ -21,28 +26,53 @@ export function loadModels(models, scene) {
         });
     }
 
+    // Load all models and create liquid effects
     async function load() {
-        function getObjectByBaseName(parent, baseName) {
-            const result = [];
+        /**
+         * Traverses the given parent object and collects child meshes based on their name.
+         * 
+         * @param {THREE.Object3D} parent - The root object to traverse.
+         * @param {Object} [param1] - Optional parameters.
+         * @param {string} [param1.baseName="WaterBody"] - The name prefix used to identify liquid meshes.
+         * @returns {object} An object containing arrays of liquid bodies and transformed shells
+         */
+        function getObjectByBaseName(parent, { baseName = "WaterBody" } = {}) {
+            const liquidBodies = [];
+            const shells = [];
+
             parent.traverse((child) => {
                 if (!child.isMesh) return;
 
                 if (child.name.startsWith(baseName))
-                    result.push(child);
+                    liquidBodies.push(child);
                 else {
                     child.material.transparent = true;
                     child.material.opacity = 0.5;
+
+                    // Get the world position, rotation, and scale of the object3D
+                    const worldPosition = new THREE.Vector3();
+                    const worldRotation = new THREE.Quaternion();
+                    const worldScale = new THREE.Vector3();
+                    child.getWorldPosition(worldPosition);
+                    child.getWorldQuaternion(worldRotation);
+                    child.getWorldScale(worldScale);
+
+                    child.position.copy(worldPosition);
+                    child.quaternion.copy(worldRotation);
+                    child.scale.copy(worldScale);
+
+                    shells.push(child);
                 }
             });
-            return result;
+            return { liquidBodies, shells };
         }
 
         for (const model of models) {
-            const gltf = await loadGLTF(`./src/assets/${model.file}`);
+            const gltf = await loadGLTF(`./src/assets/${model?.file || model}`);
             const modelMesh = gltf.scene;
-            modelMeshes.push(modelMesh);
 
-            const liquidBodies = getObjectByBaseName(modelMesh, model.liquid);
+            const { liquidBodies, shells } = getObjectByBaseName(modelMesh, { baseName: model.liquid });
+            modelMeshes.push(...shells);
 
             if (liquidBodies && liquidBodies.length > 0) {
                 for (const liquidBody of liquidBodies) {
@@ -50,9 +80,6 @@ export function loadModels(models, scene) {
                         color: 0x44aaff,
                         opacity: 0.5
                     });
-
-                    const tank = liquidEffect.parent;
-                    if (tank) tanks.push(tank);
 
                     const boundingBox = new THREE.Box3().setFromObject(liquidBody);
                     const bboxHelper = new THREE.Box3Helper(boundingBox, 0xff0000);
@@ -78,6 +105,20 @@ export function loadModels(models, scene) {
     return { liquidEffects };
 }
 
+/**
+ * Creates a visual axis helper (X, Y, Z arrows) at the world position and orientation of a given Object3D.
+ * This function is useful for debugging and visualizing the orientation of 3D objects in the scene.
+ * 
+ * The axes are color-coded:
+ * - X axis: Red
+ * - Y axis: Green
+ * - Z axis: Blue
+ * 
+ * The axis arrows are not affected by depth testing, ensuring they are always visible.
+ * 
+ * @param {THREE.Object3D} object3D - The target object whose world transform will be used to position and orient the axes.
+ * @returns {THREE.Group} A group containing the arrow helpers representing the local axes of the object.
+ */
 function _createAxis(object3D) {
     const worldPosition = new THREE.Vector3();
     const worldRotation = new THREE.Quaternion();

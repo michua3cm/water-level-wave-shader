@@ -8,26 +8,12 @@ export function animateScene({
     renderTarget,
     liquidEffects
 }) {
-    const delta = 0.01;
+    const delta = 0.005;
     let height = 0;
     let direction = 1;
 
     function animation() {
         controls.update();
-
-        // const gl = renderer.getContext();
-
-        // renderer.setRenderTarget(renderTarget);
-        // gl.clearColor(0.0, 0.0, 0.0, 1.0);
-        // gl.clearDepth(1.0);
-        // gl.clearStencil(0);
-
-        // gl.clear(gl.COLOR_BUFFER_BIT |
-        //     gl.DEPTH_BUFFER_BIT |
-        //     gl.STENCIL_BUFFER_BIT);
-
-        // renderer.render(scene, camera);
-        // renderer.setRenderTarget(null);
 
         renderer.render(scene, camera);
 

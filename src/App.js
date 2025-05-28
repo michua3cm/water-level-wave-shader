@@ -12,18 +12,14 @@ const {
 } = createScene();
 
 const models = [
-    // { file: "ChemicalIndustry.glb", liquid: "WaterBody" },
-    // { file: "model.glb", liquid: "WaterBody" },
-    // { file: "Suzanne.glb", liquid: "WaterBody" },
-    { file: "suzanne2.glb", liquid: "Suzanne" },
-    // { file: "Tank.glb", liquid: "Tank001" }
+    "Diamond.glb",
+    "Flask.glb",
+    "Icosphere.glb",
+    "Suzanne.glb",
+    "Torus.glb"
 ];
 
 const { liquidEffects } = await loadModels(models, scene, renderTarget);
-
-for (const liquid of liquidEffects) {
-    createLiquidPane(liquid.uniforms);
-}
 
 animateScene({
     scene,
