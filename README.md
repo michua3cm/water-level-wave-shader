@@ -35,6 +35,7 @@ In this way, the effect can be applied to **any arbitrary geometry**, not just s
 ## Project Structure
 
 ```text
+water-level-wave-shader/
 ├── docs/                        ← Technical notes and internal references
 ├── public/
 │   ├── assets/                  ← 3D models (.glb)
